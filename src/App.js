@@ -1,28 +1,25 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react"
+import { BrowserRouter, Route } from "react-router-dom"
+import AppNav from "./components/nav"
+import Index from "./pages/index"
+import Register from "./pages/register"
+import Login from "./pages/login"
+import ProblemDbNew from "./pages/problem_db_new"
+import ProblemDbView from "./pages/problem_db_view"
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <BrowserRouter>
+        <div>
+          <AppNav />
+          <Route path="/" exact component={Index} />
+          <Route path="/register" exact component={Register} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/problem-db/new" exact component={ProblemDbNew} />
+          <Route path="/problem-db/view/:problem_id" component={ProblemDbView} />
+        </div>
+      </BrowserRouter>
     );
   }
 }
-
-export default App;
