@@ -31,7 +31,7 @@ export default class Register extends Component {
     }).then(resp => {
       this.setState({redirect: '/'})
     }).catch(err => {
-      this.setState({error: err})
+      this.setState({error: err.toString()})
     })
   }
 
