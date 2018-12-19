@@ -32,16 +32,13 @@ export function getSession() {
   return JSON.parse(val)
 }
 
-export function getGitURL(id, token) {
-    console.log(id, config.git)
+export function getFtpURL(id, token) {
   if(token) {
-    let url = new URL(id, config.git)
+    let url = new URL(id, config.ftp)
     url.username = token
-    console.log(url.toString())
     return url.toString()
   } else {
-    console.log(new URL(id, config.git))
-    return new URL(id, config.git).href
+    return (new URL(id, config.ftp)).toString()
   }
 }
 

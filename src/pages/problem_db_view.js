@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Grid, Row, Col, Alert } from 'react-bootstrap'
-import { getGitURL, request } from '../util'
+import { getFtpURL, request } from '../util'
 
 export default class ProblemDbView extends Component {
   constructor(props, context) {
@@ -11,7 +11,7 @@ export default class ProblemDbView extends Component {
     request('/api/problem/' + this.props.match.params.problem_id + '/view', 'GET', null)
     .then(resp => {
       console.log(resp)
-      this.setState({statement: resp.statement, gitUrl: getGitURL(resp.git_repo, resp.git_token)})
+      this.setState({statement: resp.statement, ftpUrl: getFtpURL(this.props.match.params.problem_id, resp.token)})
     }).catch(err => this.setState({error: err.toString()}))
   }
   render() {
@@ -34,7 +34,7 @@ export default class ProblemDbView extends Component {
         </Row>,
         <Row key="3">
           <Col xs={12}>
-            <p>你的 Git 地址是：{this.state.gitUrl}</p>
+            <p>你的 FTP 地址是：{this.state.ftpUrl}</p>
           </Col>
         </Row>
       ]
