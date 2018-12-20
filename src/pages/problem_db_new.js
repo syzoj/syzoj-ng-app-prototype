@@ -12,7 +12,7 @@ export default class ProblemDbNew extends Component {
   submit() {
     this.setState({error: null})
     request('/api/problem/create', 'POST', {
-      statement: {}
+      title: this.state.title
     }).then(r => {
       this.setState({redirect: '/problem-db/view/' + r.problem_id})
     }).catch(e => this.setState({error: e.toString()}))
@@ -40,10 +40,6 @@ export default class ProblemDbNew extends Component {
               <FormGroup controlId="title">
                 <ControlLabel>标题</ControlLabel>
                 <FormControl type="text" value={this.state.title} onChange={e => this.setState({title: e.target.value})} placeHolder="标题" />
-              </FormGroup>
-              <FormGroup controlId="description">
-                <ControlLabel>内容</ControlLabel>
-                <FormControl componentClass="textarea" value={this.state.description} onChange={e => this.setState({description: e.target.value})} rows={15} />
               </FormGroup>
               <Button bsStyle="primary" onClick={() => this.submit()}>创建</Button>
             </form>
