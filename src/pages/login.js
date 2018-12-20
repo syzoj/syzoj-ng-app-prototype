@@ -54,7 +54,7 @@ export default class Register extends Component {
             {this.state.error ?
               <Alert bsStyle="danger">{this.state.error}</Alert>
             : null}
-            <form>
+            <form onSubmit={(e) => { e.preventDefault(); this.submit() }}>
               <FormGroup controlId="username" validationState={this.state.usernameError ? "error" : null}>
                 <ControlLabel>用户名</ControlLabel>
                 <FormControl type="text" value={this.state.username} placeholder="用户名" onChange={(e) => this.setState({username: e.target.value, usernameError: false})} />

@@ -35,7 +35,7 @@ export default class ProblemDbNew extends Component {
         </Row>
         <Row>
           <Col>
-            <form>
+            <form onSubmit={(e) => { e.preventDefault(); this.submit() }}>
               {errorComponent}
               <FormGroup controlId="title">
                 <ControlLabel>标题</ControlLabel>
