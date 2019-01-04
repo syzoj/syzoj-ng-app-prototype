@@ -47,8 +47,8 @@ export default class ProblemDbView extends Component {
       let manageComponent = null
       if(this.state.is_owner) {
         manageComponent = [
-          <Button bsStyle="primary" onClick={() => this.resetToken()}>重置链接</Button>,
-          <Button onClick={() => this.update()}>刷新</Button>,
+          <Button key="1" bsStyle="primary" onClick={() => this.resetToken()}>重置链接</Button>,
+          <Button key="2" onClick={() => this.update()}>刷新</Button>,
         ]
       }
       statementComponent = [

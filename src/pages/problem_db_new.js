@@ -6,7 +6,7 @@ import { request }from '../util'
 export default class ProblemDbNew extends Component {
   constructor(props, context) {
     super(props, context)
-    this.state = { 'title': '', 'description': '' }
+    this.state = { 'title': '' }
   }
 
   submit() {

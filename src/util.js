@@ -1,11 +1,20 @@
 import config from './config'
 
+// Borrowed from https://stackoverflow.com/a/15724300
+function getCookie(name) {
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2)
+    return parts.pop().split(";").shift();
+}
+
 export function request(url, method, request) {
   return fetch(config.api + url, {
     method: method,
     credentials: 'include',
     headers: {
-      Accept: 'application/json',
+      'Accept': 'application/json',
+      'X-CSRF-Token': getCookie("CSRF"),
       'Content-Type': 'application/json',
     },
     body: request ? JSON.stringify(request) : null,
