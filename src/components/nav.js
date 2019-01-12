@@ -11,11 +11,13 @@ export default class AppNav extends Component {
   }
   getAccountComponent() {
     let sess = getSession()
-    if(sess.user_id && sess.user_id !== defaultUserId) {
+    if(sess.logged_in) {
       return (
         <Nav pullRight>
           <NavDropdown title={sess.user_name}>
             <NavItem onClick={() => this.logout()}>Logout</NavItem>
+            <LinkContainer to="/problem-db/my"><NavItem>我的题目</NavItem></LinkContainer>
+            <LinkContainer to="/submission/my"><NavItem>我的提交记录</NavItem></LinkContainer>
           </NavDropdown>
         </Nav>
       )
