@@ -7,7 +7,7 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 export default class AppNav extends Component {
   logout() {
-    request('/api/auth/logout', 'POST', {}).then(() => this.setState({})).catch(e => alert(e))
+    request('/api/nav/logout', 'POST', {}).then(() => this.setState({})).catch(e => alert(e))
   }
   getAccountComponent() {
     let sess = getSession()
@@ -45,7 +45,12 @@ export default class AppNav extends Component {
           </Navbar.Brand>
         </Navbar.Header>
         <Nav>
-          <NavItem>首页</NavItem>
+          <LinkContainer to="/" exact>
+            <NavItem>首页</NavItem>
+          </LinkContainer>
+          <LinkContainer to="/problems" exact isActive={(match, location) => location.pathname.match(/^(\/problems|\/problem\/)/)}>
+            <NavItem>题库</NavItem>
+          </LinkContainer>
         </Nav>
         {this.getAccountComponent()}
       </Navbar>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Table, Grid, Row, Col, Alert, Button } from 'react-bootstrap'
-import { Link, Redirect } from 'react-router-dom'
+import { LinkContainer } from 'react-router-bootstrap'
+import { Link } from 'react-router-dom'
 import { request } from '../util'
 
 export default class ProblemDbMy extends Component {
@@ -12,7 +13,7 @@ export default class ProblemDbMy extends Component {
     this.get()
   }
   get() {
-    request('/api/problem/my', 'GET', null)
+    request('/api/problem-db/my', 'GET', null)
     .then(resp => {
       this.setState({
         loaded: true,
@@ -21,18 +22,17 @@ export default class ProblemDbMy extends Component {
     }).catch(err => this.setState({error: err.toString()}))
   }
   render() {
-    if(this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
-    }
     return (
       <Grid>
         {this.state.error &&
-          <Row key="error"><Col xs={12}><Alert bsStyle="danger">{this.state.error}</Alert></Col></Row>
+          <Row key="error"><Col xs={12}><Alert bsStyle="danger" onDismiss={() => this.setState({error: null})}>{this.state.error}</Alert></Col></Row>
         }
         {this.state.loaded ? [
         <Row key="3">
           <Col xs={1}>
-            <Button bsStyle="primary" onClick={() => this.setState({redirect: "/problem-db/new"})}>创建新题目</Button>
+            <LinkContainer to="/problem-db/new">
+              <Button bsStyle="primary">创建新题目</Button>
+            </LinkContainer>
           </Col>
         </Row>,
         <Row key="1">

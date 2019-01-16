@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Table, Grid, Row, Col, Alert } from 'react-bootstrap'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { request } from '../util'
 
 export default class ProblemDbMy extends Component {
@@ -21,13 +21,10 @@ export default class ProblemDbMy extends Component {
     }).catch(err => this.setState({error: err.toString()}))
   }
   render() {
-    if(this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
-    }
     return (
       <Grid>
         {this.state.error &&
-          <Row key="error"><Col xs={12}><Alert bsStyle="danger">{this.state.error}</Alert></Col></Row>
+          <Row key="error"><Col xs={12}><Alert bsStyle="danger" onDismiss={() => this.setState({error: null})}>{this.state.error}</Alert></Col></Row>
         }
         {this.state.loaded ?
         <Row key="1">

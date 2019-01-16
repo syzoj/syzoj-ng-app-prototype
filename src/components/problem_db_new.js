@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Grid, Row, Col, Alert, Button, ControlLabel, FormControl, FormGroup } from 'react-bootstrap'
-import { Redirect } from 'react-router-dom'
 import { request }from '../util'
 
 export default class ProblemDbNew extends Component {
@@ -11,20 +10,17 @@ export default class ProblemDbNew extends Component {
 
   submit() {
     this.setState({error: null})
-    request('/api/problem/create', 'POST', {
+    request('/api/problem-db/new', 'POST', {
       title: this.state.title
     }).then(r => {
-      this.setState({redirect: '/problem-db/view/' + r.problem_id})
+      this.props.history.push('/problem-db/view/' + r.problem_id)
     }).catch(e => this.setState({error: e.toString()}))
   }
 
   render() {
-    if(this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
-    }
     let errorComponent = null
     if(this.state.error) {
-      errorComponent = <Alert bsStyle="danger">{this.state.error}</Alert>
+      errorComponent = <Alert bsStyle="danger" onDismiss={() => this.setState({error: null})}>{this.state.error}</Alert>
     }
     return (
       <Grid>

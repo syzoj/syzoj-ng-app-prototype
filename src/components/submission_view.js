@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Grid, Row, Col, Alert } from 'react-bootstrap'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { request } from '../util'
 
 export default class SubmissionView extends Component {
@@ -12,7 +12,7 @@ export default class SubmissionView extends Component {
     this.get()
   }
   get() {
-    request('/api/submission/' + this.props.match.params.submission_id + '/view', 'GET', null)
+    request('/api/submission/view/' + this.props.match.params.submission_id, 'GET', null)
     .then(resp => {
       this.setState({
         submission: resp,
@@ -21,13 +21,10 @@ export default class SubmissionView extends Component {
     }).catch(err => this.setState({error: err.toString()}))
   }
   render() {
-    if(this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
-    }
     return (
       <Grid>
         {this.state.error &&
-          <Row><Col xs={12}><Alert bsStyle="danger">{this.state.error}</Alert></Col></Row>
+          <Row><Col xs={12}><Alert bsStyle="danger" onDismiss={() => this.setState({error: null})}>{this.state.error}</Alert></Col></Row>
         }
         {this.state.loaded ? [
           <Row key="1">

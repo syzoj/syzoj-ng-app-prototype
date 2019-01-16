@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Col, Row, Grid, Button, ControlLabel, FormControl, FormGroup, HelpBlock, Alert } from 'react-bootstrap'
-import { Redirect } from 'react-router-dom'
 import { request } from '../util'
 
 export default class Register extends Component {
@@ -25,20 +24,17 @@ export default class Register extends Component {
     }
     if(error) return
 
-    request('/api/auth/register', 'POST', {
+    request('/api/login', 'POST', {
       username: this.state.username,
       password: this.state.password,
     }).then(resp => {
-      this.setState({redirect: '/'})
+      this.props.history.push('/')
     }).catch(err => {
       this.setState({error: err.toString()})
     })
   }
 
   render() {
-    if(this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
-    }
     let usernameComponent = null
     if(this.state.usernameError) {
       usernameComponent = <HelpBlock>用户名必须为 3~32 个字符，由数字和大小写字母组成。</HelpBlock>
@@ -52,7 +48,7 @@ export default class Register extends Component {
         <Row>
           <Col xs={6} xsOffset={3}>
             {this.state.error ?
-              <Alert bsStyle="danger">{this.state.error}</Alert>
+              <Alert bsStyle="danger" onDismiss={() => this.setState({error: null})}>{this.state.error}</Alert>
             : null}
             <form onSubmit={(e) => { e.preventDefault(); this.submit() }}>
               <FormGroup controlId="username" validationState={this.state.usernameError ? "error" : null}>
@@ -65,7 +61,7 @@ export default class Register extends Component {
                 <FormControl type="password" value={this.state.password} placeholder="密码" onChange={(e) => this.setState({password: e.target.value, passwordError: false})} />
                 {passwordComponent}
               </FormGroup>
-              <Button bsStyle="primary" onClick={() => this.submit()}>注册</Button>
+              <Button bsStyle="primary" onClick={() => this.submit()}>登录</Button>
             </form>
           </Col>
         </Row>
