@@ -9,6 +9,8 @@ import ProblemDbView from "./components/problem_db_view"
 import ProblemDbMy from "./components/problem_db_my"
 import SubmissionMy from "./components/submission_my"
 import SubmissionView from "./components/submission_view"
+import Problems from "./components/problems"
+import Problem from "./components/problem"
 
 export default class App extends Component {
   render() {
@@ -24,6 +26,8 @@ export default class App extends Component {
           <Route path="/problem-db/view/:problem_id" component={ProblemDbView} />
           <Route path="/submission/my" exact component={SubmissionMy} />
           <Route path="/submission/view/:submission_id" exact component={SubmissionView} />
+          <Route path="/problems" exact component={Problems} />
+          <Route path="/problem/:name" exact component={Problem} />
         </div>
       </BrowserRouter>
     );
