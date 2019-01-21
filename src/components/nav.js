@@ -3,7 +3,6 @@ import { Nav, Navbar, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router-dom'
 import { request, getSession, defaultUserId } from '../util'
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 export default class AppNav extends Component {
   logout() {

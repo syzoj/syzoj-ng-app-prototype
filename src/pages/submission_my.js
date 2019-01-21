@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Table, Grid, Row, Col, Alert } from 'react-bootstrap'
+import { Table, Grid, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { request } from '../util'
+import { AlertError, wrapAlert } from '../components/alert'
 
-export default class ProblemDbMy extends Component {
+class ProblemDbMy extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {loaded: false}
@@ -18,14 +19,11 @@ export default class ProblemDbMy extends Component {
         loaded: true,
         submissions: resp.submissions,
       })
-    }).catch(err => this.setState({error: err.toString()}))
+    }).catch(err => this.props.alert({class: AlertError, message: err.toString()}))
   }
   render() {
     return (
       <Grid>
-        {this.state.error &&
-          <Row key="error"><Col xs={12}><Alert bsStyle="danger" onDismiss={() => this.setState({error: null})}>{this.state.error}</Alert></Col></Row>
-        }
         {this.state.loaded ?
         <Row key="1">
           <Col xs={12}>
@@ -60,3 +58,4 @@ export default class ProblemDbMy extends Component {
     )
   }
 }
+export default wrapAlert(ProblemDbMy)

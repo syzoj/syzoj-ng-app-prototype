@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Grid, Row, Col, Alert } from 'react-bootstrap'
+import { Grid, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { request } from '../util'
+import { AlertError, wrapAlert } from '../components/alert'
 
-export default class SubmissionView extends Component {
+class SubmissionView extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {loaded: false}
@@ -18,14 +19,11 @@ export default class SubmissionView extends Component {
         submission: resp,
         loaded: true,
       })
-    }).catch(err => this.setState({error: err.toString()}))
+    }).catch(err => this.props.alert({class: AlertError, message: err.toString()}))
   }
   render() {
     return (
       <Grid>
-        {this.state.error &&
-          <Row><Col xs={12}><Alert bsStyle="danger" onDismiss={() => this.setState({error: null})}>{this.state.error}</Alert></Col></Row>
-        }
         {this.state.loaded ? [
           <Row key="1">
             <Col key="1" xs={12}>
@@ -65,3 +63,4 @@ export default class SubmissionView extends Component {
     )
   }
 }
+export default wrapAlert(SubmissionView)

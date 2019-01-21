@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Grid, Row, Col, Alert, Button, ControlLabel, FormControl, FormGroup } from 'react-bootstrap'
+import { Grid, Row, Col, Button, ControlLabel, FormControl, FormGroup } from 'react-bootstrap'
 import { request }from '../util'
+import { wrapAlert, AlertError } from '../components/alert'
 
-export default class ProblemDbNew extends Component {
+class ProblemDbNew extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = { 'title': '' }
@@ -14,14 +15,10 @@ export default class ProblemDbNew extends Component {
       title: this.state.title
     }).then(r => {
       this.props.history.push('/problem-db/view/' + r.problem_id)
-    }).catch(e => this.setState({error: e.toString()}))
+    }).catch(err => this.props.alert({class: AlertError, message: err.toString()}))
   }
 
   render() {
-    let errorComponent = null
-    if(this.state.error) {
-      errorComponent = <Alert bsStyle="danger" onDismiss={() => this.setState({error: null})}>{this.state.error}</Alert>
-    }
     return (
       <Grid>
         <Row>
@@ -32,7 +29,6 @@ export default class ProblemDbNew extends Component {
         <Row>
           <Col>
             <form onSubmit={(e) => { e.preventDefault(); this.submit() }}>
-              {errorComponent}
               <FormGroup controlId="title">
                 <ControlLabel>标题</ControlLabel>
                 <FormControl type="text" value={this.state.title} onChange={e => this.setState({title: e.target.value})} placeHolder="标题" />
@@ -45,3 +41,4 @@ export default class ProblemDbNew extends Component {
     )
   }
 }
+export default wrapAlert(ProblemDbNew)

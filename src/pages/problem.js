@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { request } from '../util'
-import { Grid, Row, Col, Alert } from 'react-bootstrap'
+import { Grid, Row, Col } from 'react-bootstrap'
+import { wrapAlert, AlertError } from '../components/alert'
 
-export default class Problem extends Component {
+class Problem extends Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -12,19 +13,10 @@ export default class Problem extends Component {
     .then(resp => {
       this.setState({data: resp})
     })
-    .catch(err => this.setState({err: err.toString()}))
-  }
-  dismissError() {
-    this.setState({err: null})
+    .catch(err => this.props.alert({class: AlertError, message: err.toString()}))
   }
   render() {
     return <Grid>
-      {this.state.err &&
-        <Row key="err">
-          <Col xs="12">
-            <Alert bsStyle="danger" onDismiss={() => this.dismissError()}>{this.state.err}</Alert>
-          </Col>
-        </Row>}
       {this.state.data ? [
         <Row key="title" className="text-center">
           <Col xs="!2">
@@ -49,3 +41,5 @@ export default class Problem extends Component {
     </Grid>
   }
 }
+
+export default wrapAlert(Problem)

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { request } from '../util'
 import { Link } from 'react-router-dom'
-import { Grid, Row, Col, Alert, Table, FormGroup, FormControl, Button, InputGroup } from 'react-bootstrap'
+import { Grid, Row, Col, Table, FormGroup, FormControl, Button, InputGroup } from 'react-bootstrap'
+import { wrapAlert, AlertError } from '../components/alert'
 
-export default class Problems extends Component {
+class Problems extends Component {
   constructor(props, context) {
     super(props)
     this.state = {}
@@ -12,12 +13,10 @@ export default class Problems extends Component {
     request('/api/problems', 'GET', null)
     .then(resp => {
       this.setState({problems: resp})
-    }).catch(err => this.setState({error: err.toString()}))
+    }).catch(err => this.props.alert({class: AlertError, message: err.toString()}))
   }
   render() {
     return <Grid>
-      {this.state.error &&
-        <Row key="error"><Col xs="12"><Alert bsStyle="danger" onDismiss={() => this.setState({error: null})}>{this.state.error}</Alert></Col></Row>}
       <Row key="banner">
         <Col xs="12">
           <FormGroup>
@@ -59,3 +58,4 @@ export default class Problems extends Component {
     </Grid>
   }
 }
+export default wrapAlert(Problems)
