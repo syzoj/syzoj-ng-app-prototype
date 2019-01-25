@@ -16,7 +16,7 @@ class SubmissionView extends Component {
     request('/api/submission/view/' + this.props.match.params.submission_id, 'GET', null)
     .then(resp => {
       this.setState({
-        submission: resp,
+        data: resp,
         loaded: true,
       })
     }).catch(err => this.props.alert({class: AlertError, message: err.toString()}))
@@ -28,27 +28,27 @@ class SubmissionView extends Component {
           <Row key="1">
             <Col key="1" xs={12}>
               <p>
-                Status: {this.state.submission.status}
+                Status: {this.state.data.submission.status}
               </p>
               <p>
-                Message: {this.state.submission.message}
+                Message: {this.state.data.submission.message}
               </p>
               <p>
-                Score: {this.state.submission.score}
+                Score: {this.state.data.submission.score}
               </p>
               <p>
-                Language: {this.state.submission.language}
+                Language: {this.state.data.submission.language}
               </p>
               <p>
-                Problem: <Link to={"/problem-db/view/" + this.state.submission.problem_id}>{this.state.submission.problem_title}</Link>
+                Problem: <Link to={"/problem-db/view/" + this.state.data.submission.problem_id}>{this.state.data.submission.problem_title}</Link>
               </p>
               <p>
-                submit_time: {this.state.submission.submit_time}
+                submit_time: {this.state.data.submission.submit_time}
               </p>
             </Col>
             <Col key="2" xs={12}>
               <pre>
-                {this.state.submission.code}
+                {this.state.data.submission.code}
               </pre>
             </Col>
           </Row>

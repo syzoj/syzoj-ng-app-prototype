@@ -9,15 +9,16 @@ import Register from "./pages/register"
 import Login from "./pages/login"
 import ProblemDbNew from "./pages/problem_db_new"
 import ProblemDbView from "./pages/problem_db_view"
-import ProblemDbMy from "./pages/problem_db_my"
-import SubmissionMy from "./pages/submission_my"
+import ProblemDb from "./pages/problem_db"
 import SubmissionView from "./pages/submission_view"
-import Problems from "./pages/problems"
-import Problem from "./pages/problem"
+import Contests from './pages/contests'
+import ContestNew from './pages/contest_new'
 
 export default class App extends Component {
   alert(msg) {
-    return this.refAlert.alert(msg)
+    if(this.refAlert)
+      return this.refAlert.alert(msg)
+    return alert(msg.message)
   }
   render() {
     return (
@@ -29,12 +30,11 @@ export default class App extends Component {
           <Route path="/register" exact component={Register} />
           <Route path="/login" exact component={Login} />
           <Route path="/problem-db/new" exact component={ProblemDbNew} />
-          <Route path="/problem-db/my" exact component={ProblemDbMy} />
+          <Route path="/problem-db" exact component={ProblemDb} />
           <Route path="/problem-db/view/:problem_id" component={ProblemDbView} />
-          <Route path="/submission/my" exact component={SubmissionMy} />
+          <Route path="/contests" exact component={Contests} />
+          <Route path="/contest/new" exact component={ContestNew} />
           <Route path="/submission/view/:submission_id" exact component={SubmissionView} />
-          <Route path="/problems" exact component={Problems} />
-          <Route path="/problem/:name" exact component={Problem} />
         </AlertContext.Provider>
       </BrowserRouter>
     );

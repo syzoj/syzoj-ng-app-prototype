@@ -19,6 +19,7 @@ export function request(url, method, request) {
     },
     body: request ? JSON.stringify(request) : null,
   }).then((response) => {
+    console.log(response)
     if(response.status >= 500)
       throw "Internal server error: " + url + ": " + response.status
     return response.json()

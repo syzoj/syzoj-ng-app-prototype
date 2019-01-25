@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { request } from '../util'
 import { wrapAlert, AlertError } from '../components/alert'
 
-class ProblemDbMy extends Component {
+class ProblemDb extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {loaded: false}
@@ -14,7 +14,7 @@ class ProblemDbMy extends Component {
     this.get()
   }
   get() {
-    request('/api/problem-db/my', 'GET', null)
+    request('/api/problem-db' + this.props.location.search, 'GET', null)
     .then(resp => {
       this.setState({
         loaded: true,
@@ -62,4 +62,6 @@ class ProblemDbMy extends Component {
     )
   }
 }
-export default wrapAlert(ProblemDbMy)
+ProblemDb = wrapAlert(ProblemDb)
+export default (props) =>
+  <ProblemDb key={props.location.search} {...props} />

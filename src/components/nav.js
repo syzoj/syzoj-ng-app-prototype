@@ -15,7 +15,7 @@ export default class AppNav extends Component {
         <Nav pullRight>
           <NavDropdown title={sess.user_name}>
             <NavItem onClick={() => this.logout()}>Logout</NavItem>
-            <LinkContainer to="/problem-db/my"><NavItem>我的题目</NavItem></LinkContainer>
+            <LinkContainer to="/problem-db/?my=1"><NavItem>我的题目</NavItem></LinkContainer>
             <LinkContainer to="/submission/my"><NavItem>我的提交记录</NavItem></LinkContainer>
           </NavDropdown>
         </Nav>
@@ -25,10 +25,10 @@ export default class AppNav extends Component {
         <Nav pullRight>
           <NavDropdown title="Account">
             <LinkContainer to="/register">
-              <MenuItem>Register</MenuItem>
+              <MenuItem>注册</MenuItem>
             </LinkContainer>
             <LinkContainer to="/login">
-              <MenuItem>Login</MenuItem>
+              <MenuItem>登录</MenuItem>
             </LinkContainer>
           </NavDropdown>
         </Nav>
@@ -47,8 +47,11 @@ export default class AppNav extends Component {
           <LinkContainer to="/" exact>
             <NavItem>首页</NavItem>
           </LinkContainer>
-          <LinkContainer to="/problems" exact isActive={(match, location) => location.pathname.match(/^(\/problems|\/problem\/)/)}>
+          <LinkContainer to="/problem-db" isActive={(match, location) => location.pathname.match(/^(\/problem-db|\/problems\/|\/problem\/)/)}>
             <NavItem>题库</NavItem>
+          </LinkContainer>
+          <LinkContainer to="/contests" isActive={(match, location) => location.pathname.match(/^(\/contests|\/contest\/)/)}>
+            <NavItem>比赛</NavItem>
           </LinkContainer>
         </Nav>
         {this.getAccountComponent()}
