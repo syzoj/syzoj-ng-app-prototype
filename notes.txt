@@ -1,0 +1,2 @@
+需要在 public 目录下创建 MathJax-2.7.5 文件夹并放入相应版本 MathJax.
+下载地址：https://github.com/mathjax/MathJax/archive/2.7.5.zip

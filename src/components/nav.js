@@ -16,7 +16,7 @@ export default class AppNav extends Component {
           <NavDropdown title={sess.user_name}>
             <NavItem onClick={() => this.logout()}>Logout</NavItem>
             <LinkContainer to="/problem-db/?my=1"><NavItem>我的题目</NavItem></LinkContainer>
-            <LinkContainer to="/submission/my"><NavItem>我的提交记录</NavItem></LinkContainer>
+            <LinkContainer to="/submissions/?my=1"><NavItem>我的提交记录</NavItem></LinkContainer>
           </NavDropdown>
         </Nav>
       )

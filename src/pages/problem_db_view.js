@@ -6,6 +6,7 @@ import 'brace/mode/pascal'
 import 'brace/theme/tomorrow'
 import { getFtpURL, request } from '../util'
 import { AlertError, wrapAlert } from '../components/alert'
+import ProblemStatement from '../components/problem_statement'
 
 class TabEdit extends Component {
   render() {
@@ -99,7 +100,14 @@ class ProblemDbView extends Component {
       code: val,
     }).then(resp => {
       this.props.history.push('/submission/view/' + resp.id)
-    }).catch(err => alert(err))
+    }).catch(err => this.props.alert({class: AlertError, message: err.toString()}))
+  }
+  submitEdit(val) {
+    request('/api/problem-db/view/' + this.props.match.params.problem_id + '/edit', 'POST', {
+      statement: val,
+    }).then(resp => {
+      this.get()
+    }).catch(err => this.props.alert({class: AlertError, message: err.toString()}))
   }
   render() {
     return (
@@ -107,12 +115,28 @@ class ProblemDbView extends Component {
         {this.state.loaded ? [
           <Row key="1">
             <Col xs={12}>
-              <h1 className="text-center">{this.state.data.title || "无标题"}</h1>
+              <h1 className="text-center">{this.state.data.title || "无标题"}
+                {this.state.data.is_owner && !this.state.edit && <sup><small><a href="#" onClick={() => this.setState({edit: true})}>编辑</a></small></sup>}
+              </h1>
             </Col>
           </Row>,
+          this.state.edit ? [
+          <Row key="5">
+            <Col xs={12}>
+              <FormControl componentClass="textarea" defaultValue={this.state.data.statement} inputRef={(ref) => this.refEditStatement = ref} rows={30} />
+            </Col>
+          </Row>,
+          <Row key="6">
+            <Col xs={12} className="text-center">
+              <Button bsStyle="primary" onClick={() => { this.setState({edit: false}); this.submitEdit(this.refEditStatement.value) }}>确定</Button>
+              <Button bsStyle="danger" onClick={() => this.setState({edit: false})}>放弃</Button>
+            </Col>
+          </Row>
+          ]
+          :
           <Row key="2">
             <Col xs={12}>
-              <pre>{this.state.data.statement || "无题面"}</pre>
+              <ProblemStatement>{this.state.data.statement}</ProblemStatement>
             </Col>
           </Row>,
           <Row key="4" style={{display: (this.state.data.can_submit ? 'block' : 'none')}}>

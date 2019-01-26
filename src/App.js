@@ -10,6 +10,7 @@ import Login from "./pages/login"
 import ProblemDbNew from "./pages/problem_db_new"
 import ProblemDbView from "./pages/problem_db_view"
 import ProblemDb from "./pages/problem_db"
+import Submissions from './pages/submissions'
 import SubmissionView from "./pages/submission_view"
 import Contests from './pages/contests'
 import ContestNew from './pages/contest_new'
@@ -34,6 +35,7 @@ export default class App extends Component {
           <Route path="/problem-db/view/:problem_id" component={ProblemDbView} />
           <Route path="/contests" exact component={Contests} />
           <Route path="/contest/new" exact component={ContestNew} />
+          <Route path="/submissions" exact component={Submissions} />
           <Route path="/submission/view/:submission_id" exact component={SubmissionView} />
         </AlertContext.Provider>
       </BrowserRouter>
