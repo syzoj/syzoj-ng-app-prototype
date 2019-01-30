@@ -14,7 +14,7 @@ export function request(url, method, request) {
     credentials: 'include',
     headers: {
       'Accept': 'application/json',
-      'X-CSRF-Token': getCookie("CSRF"),
+      'X-CSRF-Token': '1',
       'Content-Type': 'application/json',
     },
     body: request ? JSON.stringify(request) : null,
