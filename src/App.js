@@ -14,6 +14,10 @@ import Submissions from './pages/submissions'
 import SubmissionView from "./pages/submission_view"
 import Contests from './pages/contests'
 import ContestNew from './pages/contest_new'
+import Contest from './pages/contest'
+
+import { request } from "./util"
+window['request'] = request
 
 export default class App extends Component {
   alert(msg) {
@@ -35,6 +39,7 @@ export default class App extends Component {
           <Route path="/problem-db/view/:problem_id" component={ProblemDbView} />
           <Route path="/contests" exact component={Contests} />
           <Route path="/contest/new" exact component={ContestNew} />
+          <Route path="/contest/:contest_id" component={Contest} />
           <Route path="/submissions" exact component={Submissions} />
           <Route path="/submission/view/:submission_id" exact component={SubmissionView} />
         </AlertContext.Provider>

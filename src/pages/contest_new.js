@@ -36,7 +36,7 @@ class ContestNew extends Component {
   }
 
   submit() {
-    request('/api/contest/new', 'POST', {
+    request('/api/contest-new', 'POST', {
       title: this.refTitle.value,
       options: {
         start_time: this.refStart.value,

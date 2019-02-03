@@ -37,7 +37,7 @@ class Contests extends Component {
                 <tbody>
                   {this.state.data.contests.map(contest => 
                     <tr>
-                      <td><Link to={'/contest/view/' + contest.id}>{contest.title}</Link></td>
+                      <td><Link to={'/contest/' + contest.id + '/index'}>{contest.title}</Link></td>
                       <td>{contest.running ? "是" : "否"}</td>
                       <td>{contest.start_time}</td>
                       <td>TODO</td>
