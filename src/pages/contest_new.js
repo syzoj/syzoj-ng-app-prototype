@@ -15,6 +15,7 @@ class ContestNew extends Component {
     see_result: true,
     rejudge_after_contest: false,
     ranklist_type: "realtime",
+    ranklist_comp: "acm",
     ranklist_visibility: "public",
   }
   NOI = {
@@ -22,6 +23,7 @@ class ContestNew extends Component {
     see_result: false,
     rejudge_after_contest: true,
     ranklist_type: "defer",
+    ranklist_comp: "lastsum",
     ranklist_visibility: "public",
   }
   IOI = {
@@ -29,6 +31,7 @@ class ContestNew extends Component {
     see_result: true,
     rejudge_after_contest: false,
     ranklist_type: "realtime",
+    ranklist_comp: "maxsum",
     ranklist_visibility: null
   }
 
@@ -105,6 +108,14 @@ class ContestNew extends Component {
               <Radio inline checked={!this.state.rules.ranklist_visibility} onChange={e => {this.setState(prevState => ({...prevState, rules: {...prevState.rules, ranklist_visibility: null}}))}}>仅管理员可见</Radio>
               <Radio inline checked={this.state.rules.ranklist_visibility === "players"} onChange={e => {this.setState(prevState => ({...prevState, rules: {...prevState.rules, ranklist_visibility: "players"}}))}}>仅选手可见</Radio>
               <Radio inline checked={this.state.rules.ranklist_visibility === "public"} onChange={e => {this.setState(prevState => ({...prevState, rules: {...prevState.rules, ranklist_visibility: "public"}}))}}>公开</Radio>
+            </Col>
+          </FormGroup>
+          <FormGroup>
+            <Col componentClass={ControlLabel} sm={2} xs={12}>排序方式</Col>
+            <Col sm={10} xs={12}>
+              <Radio inline checked={this.state.rules.ranklist_comp == "maxsum"} onChange={e => {this.setState(prevState => ({...prevState, rules: {...prevState.rules, ranklist_comp: "maxsum"}}))}}>每题最高分之和</Radio>
+              <Radio inline checked={this.state.rules.ranklist_comp == "lastsum"} onChange={e => {this.setState(prevState => ({...prevState, rules: {...prevState.rules, ranklist_comp: "lastsum"}}))}}>最后一次提交分数之和</Radio>
+              <Radio inline checked={this.state.rules.ranklist_comp == "acm"} onChange={e => {this.setState(prevState => ({...prevState, rules: {...prevState.rules, ranklist_comp: "acm"}}))}}>以通过题数为第一关键字,罚时为第二关键字</Radio>
             </Col>
           </FormGroup>
           <FormGroup>
