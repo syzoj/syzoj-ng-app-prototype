@@ -44,7 +44,7 @@ class ContestNew extends Component {
         rules: this.state.rules
       }
     }).then(resp => {
-      this.props.history.push('/contest/view/' + resp.id)
+      this.props.history.push('/contest/' + resp.id + '/index')
     }).catch(err => this.props.alert({class: AlertError, message: err.toString()}))
   }
   render() {

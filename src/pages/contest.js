@@ -4,7 +4,7 @@ import ContestStatus from '../components/contest_status'
 import ContestIndex from './contest_index'
 import ContestRanklist from './contest_ranklist'
 
-export default class Contest extends Component {
+class Contest extends Component {
   constructor(props) {
     super(props)
   }
@@ -16,3 +16,5 @@ export default class Contest extends Component {
     </div>
   }
 }
+
+export default (props) => <Contest key={props.match.params.contest_id} {...props} />
