@@ -19,7 +19,7 @@ class Contests extends Component {
     return (
       <Grid>
         <Row>
-          <Col xs={12}><span className="h1">比赛</span><LinkContainer to="/contest/new"><Button bsStyle="primary">创建新比赛</Button></LinkContainer></Col>
+          <Col xs={12}><span className="h1">比赛</span><LinkContainer to="/contest-new"><Button bsStyle="primary">创建新比赛</Button></LinkContainer></Col>
         </Row>
         <Row>
           <Col xs={12}>

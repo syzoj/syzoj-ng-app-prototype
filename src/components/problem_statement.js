@@ -17,7 +17,6 @@ const ProblemStatement = (props) => {
     inlineMath: (props) =>
       <MathJax.Node inline>{props.value}</MathJax.Node>
   }
-  let val = 'x+\\sqrt{1-x^2}'
   return <div>
     <MathJax.Context input="tex" script="/MathJax-2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
       <div>

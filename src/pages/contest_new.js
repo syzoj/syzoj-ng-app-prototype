@@ -38,6 +38,7 @@ class ContestNew extends Component {
   submit() {
     request('/api/contest-new', 'POST', {
       title: this.refTitle.value,
+      description: this.refDescription.value,
       options: {
         start_time: this.refStart.value,
         duration: this.refDuration.value,
@@ -61,6 +62,12 @@ class ContestNew extends Component {
             <Col sm={2} xs={12} componentClass={ControlLabel}>标题</Col>
             <Col sm={10} xs={12}>
               <FormControl type="text" inputRef={(ref) => this.refTitle = ref} />
+            </Col>
+          </FormGroup>
+          <FormGroup>
+            <Col sm={2} xs={12} componentClass={ControlLabel}>描述</Col>
+            <Col sm={10} xs={12}>
+              <FormControl componentClass="textarea" inputRef={(ref) => this.refDescription = ref} rows={20} />
             </Col>
           </FormGroup>
           <FormGroup>
