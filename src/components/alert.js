@@ -16,6 +16,18 @@ export function AlertError(props) {
   </Modal>
 }
 
+export function AlertInfo(props) {
+  return <Modal show={true} onHide={props.onDismiss}>
+    <Modal.Header closeButton>
+      <Modal.Title>提示</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      <p>{props.msg.message}</p>
+      <Button bsStyle="primary" onClick={props.onDismiss}>确定</Button>
+    </Modal.Body>
+  </Modal>
+}
+
 export class AlertGroup extends Component {
   constructor(props) {
     super(props)

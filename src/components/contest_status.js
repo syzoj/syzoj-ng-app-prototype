@@ -20,7 +20,7 @@ export default class ContestStatus extends Component {
   render() {
     return <Row>
       <Col xs={12}>
-        <pre>{JSON.stringify(this.state)}</pre>
+        <pre style={{"overflow-x": "auto", "white-space": "pre-wrap"}}>{JSON.stringify(this.state)}</pre>
       </Col>
       <Col xs={12}>
         <Link to={"/contest/" + this.props.contestId + "/index"}>Index</Link>

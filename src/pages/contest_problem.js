@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { request } from '../util'
-import { wrapAlert, AlertError } from '../components/alert'
+import { wrapAlert, AlertError, AlertInfo } from '../components/alert'
 import { Grid, Row, Col } from 'react-bootstrap'
 import ProblemStatement from '../components/problem_statement'
 import CodeEditor from '../components/code_editor'
@@ -14,8 +14,7 @@ class ContestProblem extends Component {
     request('/api/contest/' + this.props.match.params.contest_id + '/problem/' + this.props.match.params.entry_name + '/submit', 'POST', {
       code: data
     }).then(resp => {
-      alert(resp.submission_id)
-      console.log(resp)
+      this.props.alert({ class: AlertInfo, message: resp.submission_id })
     }).catch(err => {
       this.props.alert({ class: AlertError, message: err.toString() })
     })
