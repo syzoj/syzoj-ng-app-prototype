@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { request } from '../util'
-import { wrapAlert, AlertError } from '../components/alert'
-import { Grid, Row, Col, Table } from 'react-bootstrap'
+import { wrapAlert, AlertError, AlertInfo } from '../components/alert'
+import { Grid, Row, Col, Table, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 class ContestIndex extends Component {
@@ -10,10 +10,22 @@ class ContestIndex extends Component {
     this.state = { loading: true }
   }
   componentDidMount() {
+    this.get()
+  }
+  get() {
     request('/api/contest/' + this.props.match.params.contest_id + '/index', 'GET', null)
     .then(resp => {
       this.setState({ data: resp, loading: false })
       console.log(resp)
+    }).catch(err => {
+      this.props.alert({class: AlertError, message: err.toString()})
+    })
+  }
+  register() {
+    request('/api/contest/' + this.props.match.params.contest_id + '/register', 'POST', {})
+    .then(resp => {
+      this.props.alert({class: AlertInfo, message: "报名成功"})
+      this.get()
     }).catch(err => {
       this.props.alert({class: AlertError, message: err.toString()})
     })
@@ -23,7 +35,10 @@ class ContestIndex extends Component {
       {this.state.loading && <Row><Col xs={12}>Loading</Col></Row>}
       {this.state.data && [
         <Row>
-          <Col xs={12} className="h1">{this.state.data.name}</Col>
+          <Col xs={12} className="h1">
+            {this.state.data.name}
+            <Button onClick={() => this.register()}>报名</Button>
+          </Col>
         </Row>,
         <Row>
           <Col xs={12}>{this.state.data.description}</Col>
