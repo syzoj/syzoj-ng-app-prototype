@@ -5,6 +5,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
 import { AlertGroup, AlertContext } from './components/alert'
 import AppNav from "./components/nav"
 import Index from "./pages/index"
+import P from "./pages/p"
 import Register from "./pages/register"
 import Login from "./pages/login"
 import ProblemDbNew from "./pages/problem_db_new"
@@ -32,6 +33,7 @@ export default class App extends Component {
           <AlertGroup ref={(ref) => this.refAlert = ref} />
           <AppNav />
           <Route path="/" exact component={Index} />
+          <Route path="/p/:short_name" exact component={P} />
           <Route path="/register" exact component={Register} />
           <Route path="/login" exact component={Login} />
           <Route path="/problem-db/new" exact component={ProblemDbNew} />
