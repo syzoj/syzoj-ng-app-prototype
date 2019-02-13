@@ -40,6 +40,7 @@ class ProblemDb extends Component {
                 <tr>
                   <th>Title</th>
                   <th>Creation Time</th>
+                  <th>Submit</th>
                 </tr>
               </thead>
               <tbody>
@@ -47,6 +48,7 @@ class ProblemDb extends Component {
                 <tr>
                   <td><Link to={"/problem-db/view/" + problem.id}>{problem.title}</Link></td>
                   <td>{problem.create_time}</td>
+                  <td>{problem.submit_count}</td>
                 </tr>
               )}
               </tbody>

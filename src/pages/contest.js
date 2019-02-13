@@ -11,7 +11,9 @@ class Contest extends Component {
   }
   render() {
     return <div>
-      <ContestStatus contestId={this.props.match.params.contest_id} />
+      <div className="sticky-top">
+        <ContestStatus contestId={this.props.match.params.contest_id} />
+      </div>
       <Route path="/contest/:contest_id/index" component={ContestIndex} />
       <Route path="/contest/:contest_id/ranklist" component={ContestRanklist} />
       <Route path="/contest/:contest_id/problem/:entry_name" component={ContestProblem} />

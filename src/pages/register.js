@@ -23,11 +23,16 @@ class Register extends Component {
       this.setState({passwordError: true})
       error = true
     }
+    if(!this.state.email.match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)) {
+      this.setState({emailError: true})
+      error = true
+    }
     if(error) return
 
     request('/api/register', 'POST', {
       username: this.state.username,
       password: this.state.password,
+      email: this.state.email,
     }).then(resp => {
       this.props.history.push('/login')
     }).catch(err => {
@@ -50,6 +55,11 @@ class Register extends Component {
                 <ControlLabel>密码</ControlLabel>
                 <FormControl type="password" value={this.state.password} placeholder="密码" onChange={(e) => this.setState({password: e.target.value, passwordError: false})} />
                 {this.state.passwordError && <HelpBlock>密码至少为 6 个字符。</HelpBlock>}
+              </FormGroup>
+              <FormGroup controlId="email" validationState={this.state.emailError ? "error" : null}>
+                <ControlLabel>邮箱</ControlLabel>
+                <FormControl type="email" value={this.state.email} placeholder="邮箱" onChange={(e) => this.setState({email: e.target.value, emailError: false})} />
+                {this.state.emailError && <HelpBlock>请输入合法的邮箱。</HelpBlock>}
               </FormGroup>
               <Button bsStyle="primary" onClick={() => this.submit()}>注册</Button>
             </form>
