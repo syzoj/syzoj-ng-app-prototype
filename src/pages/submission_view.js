@@ -15,6 +15,10 @@ class SubmissionView extends Component {
   get() {
     request('/api/submission/view/' + this.props.match.params.submission_id, 'GET', null)
     .then(resp => {
+      resp.submission = resp.submission || {}
+      resp.submission.result = resp.submission.result || {}
+      resp.submission.content = resp.submission.content || {}
+      resp.problem = resp.problem || {}
       this.setState({
         data: resp,
         loaded: true,
@@ -28,19 +32,16 @@ class SubmissionView extends Component {
           <Row key="1">
             <Col key="1" xs={12}>
               <p>
-                Status: {this.state.data.submission.status}
+                Status: {this.state.data.submission.result.status}
               </p>
               <p>
-                Message: {this.state.data.submission.message}
+                Score: {this.state.data.submission.result.score}
               </p>
               <p>
-                Score: {this.state.data.submission.score}
+                Language: {this.state.data.submission.content.language}
               </p>
               <p>
-                Language: {this.state.data.submission.language}
-              </p>
-              <p>
-                Problem: <Link to={"/problem-db/view/" + this.state.data.submission.problem_id}>{this.state.data.submission.problem_title}</Link>
+                Problem: <Link to={"/problem-db/view/" + this.state.data.submission.problem}>{this.state.data.problem.title}</Link>
               </p>
               <p>
                 submit_time: {this.state.data.submission.submit_time}
@@ -48,7 +49,7 @@ class SubmissionView extends Component {
             </Col>
             <Col key="2" xs={12}>
               <pre>
-                {this.state.data.submission.code}
+                {this.state.data.submission.content.code}
               </pre>
             </Col>
           </Row>

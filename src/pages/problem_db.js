@@ -16,6 +16,7 @@ class ProblemDb extends Component {
   get() {
     request('/api/problem-db' + this.props.location.search, 'GET', null)
     .then(resp => {
+      resp.problems = resp.problems || []
       this.setState({
         loaded: true,
         problems: resp.problems,
@@ -48,7 +49,7 @@ class ProblemDb extends Component {
                 <tr>
                   <td><Link to={"/problem-db/view/" + problem.id}>{problem.title}</Link></td>
                   <td>{problem.create_time}</td>
-                  <td>{problem.submit_count}</td>
+                  <td>{problem.public_stats && problem.public_stats.submission}</td>
                 </tr>
               )}
               </tbody>

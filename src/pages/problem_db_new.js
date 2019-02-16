@@ -12,9 +12,11 @@ class ProblemDbNew extends Component {
   submit() {
     this.setState({error: null})
     request('/api/problem-db/new', 'POST', {
-      title: this.state.title
+      problem: {
+        title: this.state.title
+      }
     }).then(r => {
-      this.props.history.push('/problem-db/view/' + r.problem_id)
+      this.props.history.push('/problem-db/view/' + r.problem.id)
     }).catch(err => this.props.alert({class: AlertError, message: err.toString()}))
   }
 

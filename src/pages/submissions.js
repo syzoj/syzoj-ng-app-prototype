@@ -12,6 +12,7 @@ class Submissions extends Component {
   componentDidMount() {
     request('/api/submissions' + this.props.location.search, 'GET', null)
     .then(resp => {
+      resp.submissions = resp.submissions || []
       this.setState({ loading: false, data: resp })
     }).catch(err => {
       this.props.alert({ class: AlertError, message: err.toString()})
@@ -43,15 +44,15 @@ class Submissions extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.data.submissions.map(submission =>
+              {this.state.data.submissions.map(entry =>
                 <tr>
-                  <td><Link to={'/problem-db/view/' + submission.problem_id}>{submission.problem_title}</Link></td>
-                  <td>{submission.status}</td>
-                  <td>{submission.score}</td>
-                  <td><Link to={'/user/' + submission.submit_user_id}>{submission.submit_user_name}</Link></td>
-                  <td>{submission.language}</td>
-                  <td>{submission.submit_time}</td>
-                  <td><Link to={'/submission/view/' + submission.id}>查看</Link></td>
+                  <td><Link to={'/problem-db/view/' + entry.submission.problem}>{entry.problem && entry.problem.title}</Link></td>
+                  <td>{entry.submission.result && entry.submission.result.status}</td>
+                  <td>{entry.submission.result && entry.submission.result.score}</td>
+                  <td><Link to={'/user/' + entry.submission.submit_user}>{entry.submit_user && entry.submit_user.username}</Link></td>
+                  <td>{entry.submission.content.language}</td>
+                  <td>{entry.submission.submit_time}</td>
+                  <td><Link to={'/submission/view/' + entry.submission.id}>查看</Link></td>
                 </tr>
               )}
             </tbody>
