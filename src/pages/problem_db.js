@@ -47,7 +47,7 @@ class ProblemDb extends Component {
               <tbody>
               {this.state.problems.map(problem => 
                 <tr>
-                  <td><Link to={"/problem-db/view/" + problem.id}>{problem.title}</Link></td>
+                  <td><Link to={"/problem-db/view/" + problem.problem_id}>{problem.title}</Link></td>
                   <td>{problem.create_time}</td>
                   <td>{problem.public_stats && problem.public_stats.submission}</td>
                 </tr>

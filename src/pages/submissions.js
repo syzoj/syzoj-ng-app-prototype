@@ -46,13 +46,13 @@ class Submissions extends Component {
             <tbody>
               {this.state.data.submissions.map(entry =>
                 <tr>
-                  <td><Link to={'/problem-db/view/' + entry.submission.problem}>{entry.problem && entry.problem.title}</Link></td>
-                  <td>{entry.submission.result && entry.submission.result.status}</td>
-                  <td>{entry.submission.result && entry.submission.result.score}</td>
-                  <td><Link to={'/user/' + entry.submission.submit_user}>{entry.submit_user && entry.submit_user.username}</Link></td>
-                  <td>{entry.submission.content.language}</td>
-                  <td>{entry.submission.submit_time}</td>
-                  <td><Link to={'/submission/view/' + entry.submission.id}>查看</Link></td>
+                  <td><Link to={'/problem-db/view/' + entry.problem_id}>{entry.problem_title}</Link></td>
+                  <td>{entry.submission_result_status}</td>
+                  <td>{entry.submission_result_score}</td>
+                  <td><Link to={'/user/' + entry.user_id}>{entry.user_username}</Link></td>
+                  <td>{entry.submission_content_language}</td>
+                  <td>{entry.submission_submit_time}</td>
+                  <td><Link to={'/submission/view/' + entry.submission_id}>查看</Link></td>
                 </tr>
               )}
             </tbody>

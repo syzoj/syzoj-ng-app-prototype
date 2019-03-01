@@ -47,9 +47,9 @@ class ProblemDbView extends Component {
   }
   submit(val) {
     request('/api/problem-db/view/' + this.props.match.params.problem_id + '/submit', 'POST', {
-      code: val,
+      content: val,
     }).then(resp => {
-      this.props.history.push('/submission/view/' + resp.submission.id)
+      this.props.history.push('/submission/view/' + resp.submission_id)
     }).catch(err => this.props.alert({class: AlertError, message: err.toString()}))
   }
   submitEdit(val) {
@@ -67,7 +67,7 @@ class ProblemDbView extends Component {
         {this.state.loaded ? [
           <Row key="1">
             <Col xs={12}>
-              <h1 className="text-center">{this.state.data.problem.title || "无标题"}
+              <h1 className="text-center">{this.state.data.title || "无标题"}
                 {this.state.data.is_owner && !this.state.edit && <sup><small><a href="#" onClick={() => this.setState({edit: true})}>编辑</a></small></sup>}
               </h1>
             </Col>
@@ -75,7 +75,7 @@ class ProblemDbView extends Component {
           this.state.edit ? [
           <Row key="5">
             <Col xs={12}>
-              <FormControl componentClass="textarea" defaultValue={this.state.data.problem.statement} inputRef={(ref) => this.refEditStatement = ref} rows={30} />
+              <FormControl componentClass="textarea" defaultValue={this.state.data.statement} inputRef={(ref) => this.refEditStatement = ref} rows={30} />
             </Col>
           </Row>,
           <Row key="6">
@@ -88,7 +88,7 @@ class ProblemDbView extends Component {
           :
           <Row key="2">
             <Col xs={12}>
-              <ProblemStatement>{this.state.data.problem.statement}</ProblemStatement>
+              <ProblemStatement>{this.state.data.statement}</ProblemStatement>
             </Col>
           </Row>,
           <Row key="4" style={{display: (this.state.data.can_submit ? 'block' : 'none')}}>
