@@ -5,7 +5,7 @@ const APIContext = React.createContext();
 export class APIBase extends Component {
   constructor(props) {
     super(props);
-    this.components = {};
+    this.components = { "#": this };
   }
   render() {
     return (
@@ -18,6 +18,10 @@ export class APIBase extends Component {
     const path = this.props.location.pathname + this.props.location.search;
     this.get(this.props.api + path);
   }
+  // exposed to server
+  historyPush(data) {
+    this.props.history.push(data.path);
+  }
   get(path) {
     fetch(path, {
       method: "GET",
@@ -27,12 +31,16 @@ export class APIBase extends Component {
     })
       .then(resp => resp.json())
       .then(resp => this.handleResponse(resp))
-      .catch(err => console.log(err));
+      .catch(err => this.handleNetworkError(err));
+  }
+  handleNetworkError(err) {
+    alert(err);
   }
   handleResponse(resp) {
-    resp.mutations.forEach(mut => {
-      this.components[mut.path][mut.method](mut.value);
-    });
+    if (resp.mutations)
+      resp.mutations.forEach(mut => {
+        this.components[mut.path][mut.method](mut.value);
+      });
   }
   doAction(url, action, data) {
     const u =
@@ -47,7 +55,7 @@ export class APIBase extends Component {
     })
       .then(resp => resp.json())
       .then(resp => this.handleResponse(resp))
-      .catch(err => console.log(err));
+      .catch(err => this.handleNetworkError(err));
   }
 }
 

@@ -28,6 +28,7 @@ class BasePage extends BaseComponent {
     this.state = {};
   }
   setBody(body) {
+    console.log(body);
     this.setState({ data: body });
   }
   setError(err) {
