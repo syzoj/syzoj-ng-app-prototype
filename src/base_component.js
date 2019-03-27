@@ -5,7 +5,7 @@ const APIContext = React.createContext();
 export class APIBase extends Component {
   constructor(props) {
     super(props);
-    this.components = { "#": this };
+    this.components = {};
   }
   render() {
     return (
@@ -14,16 +14,8 @@ export class APIBase extends Component {
       </APIContext.Provider>
     );
   }
-  componentDidMount() {
-    const path = this.props.location.pathname + this.props.location.search;
-    this.get(this.props.api + path);
-  }
-  // exposed to server
-  historyPush(data) {
-    this.props.history.push(data.path);
-  }
   get(path) {
-    fetch(path, {
+    fetch(this.props.api + path, {
       method: "GET",
       headers: {
         Accept: "application/json"
@@ -33,13 +25,15 @@ export class APIBase extends Component {
       .then(resp => this.handleResponse(resp))
       .catch(err => this.handleNetworkError(err));
   }
+  // TODO: Add UI
   handleNetworkError(err) {
-    alert(err);
+    console.log(err);
   }
   handleResponse(resp) {
+    console.log(resp);
     if (resp.mutations)
       resp.mutations.forEach(mut => {
-        this.components[mut.path][mut.method](mut.value);
+        this.components[mut.path]["N_" + mut.method](mut.value);
       });
   }
   doAction(url, action, data) {
@@ -59,15 +53,30 @@ export class APIBase extends Component {
   }
 }
 
-export class BaseComponent extends PureComponent {
-  static contextType = APIContext;
-  componentDidMount() {
-    this.context.components[this.props.url] = this;
-  }
-  componentWillUnmount() {
-    delete this.context.components[this.props.url];
-  }
-  doAction(action, data) {
-    return this.context.doAction(this.props.url, action, data);
-  }
+export function withNetwork(WrappedComponent) {
+  return class extends React.Component {
+    static contextType = APIContext;
+    setRef(ref) {
+      if (ref == null) {
+        delete this.context.components[this.props.url];
+      } else {
+        this.context.components[this.props.url] = ref;
+      }
+    }
+    doAction(action, data) {
+      return this.context.doAction(this.props.url, action, data);
+    }
+    get(path) {
+      return this.context.get(path);
+    }
+    render() {
+      return (
+        <WrappedComponent
+          ref={ref => this.setRef(ref)}
+          network={this}
+          {...this.props}
+        />
+      );
+    }
+  };
 }

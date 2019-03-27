@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { BaseComponent } from "../base_component";
 
 // Corresponding message: syzoj.api.NotFoundPage
-export default class NotFoundPage extends BaseComponent {
+export default class NotFoundPage extends Component {
   render() {
     return "Page Not Found";
   }

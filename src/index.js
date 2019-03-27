@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { APIBase, BaseComponent } from "./base_component";
+import { APIBase, withNetwork } from "./base_component";
 
 import "./styles.css";
 import Any from "./components/any";
@@ -9,7 +9,7 @@ import Any from "./components/any";
 function App() {
   return (
     <Router>
-      <Route path="/" component={Base} />
+      <Route component={Base} />
     </Router>
   );
 }
@@ -17,22 +17,37 @@ function App() {
 function Base(props) {
   return (
     <APIBase api="http://127.0.0.1:5900/api" {...props}>
-      <BasePage url="" />
+      <BasePage url="" {...props} />
     </APIBase>
   );
 }
 
-class BasePage extends BaseComponent {
+class basePage extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
-  setBody(body) {
-    console.log(body);
-    this.setState({ data: body });
+  componentDidMount() {
+    this.refresh();
   }
-  setError(err) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.location != this.props.location) {
+      this.refresh();
+    }
+  }
+  refresh() {
+    const path = this.props.location.pathname + this.props.location.search;
+    this.props.network.get(path);
+  }
+  N_setBody(data) {
+    this.setState({ data: data });
+  }
+  // TODO: add UI
+  N_setError(err) {
     console.log(err);
+  }
+  N_redirect(data) {
+    this.props.history.push(data.path);
   }
   render() {
     return this.state.data ? (
@@ -42,6 +57,8 @@ class BasePage extends BaseComponent {
     );
   }
 }
+
+const BasePage = withNetwork(basePage);
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);

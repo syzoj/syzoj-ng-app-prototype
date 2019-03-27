@@ -1,20 +1,21 @@
 import React, { Component } from "react";
-import { BaseComponent } from "../base_component";
+import { withNetwork } from "../base_component";
 
 // Corresponding message: syzoj.api.RegisterPage
-export default class RegisterPage extends BaseComponent {
+class RegisterPage extends Component {
   render() {
     return (
       <div>
-        "Register page"
         <button onClick={() => this.register()}>Register</button>
       </div>
     );
   }
   register() {
-    this.doAction("register", {
+    this.props.network.doAction("register", {
       user_name: "test",
       password: "test"
     });
   }
 }
+
+export default withNetwork(RegisterPage);
