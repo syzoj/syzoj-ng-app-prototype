@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withNetwork } from "../base_component";
 
+// Cooresponding message: syzoj.api.ProblemCreatePage
 class ProblemCreatePage extends Component {
   render() {
     return (

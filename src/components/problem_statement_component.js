@@ -4,7 +4,11 @@ import { withNetwork } from "../base_component";
 
 class ProblemStatementComponent extends Component {
   render() {
-    return "<ProblemStatement />";
+    return (
+      <div>
+        <pre>{JSON.stringify(this.props.data)}</pre>
+      </div>
+    );
   }
 }
 

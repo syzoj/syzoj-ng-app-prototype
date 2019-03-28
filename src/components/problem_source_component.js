@@ -4,7 +4,7 @@ import { withNetwork } from "../base_component";
 
 class ProblemSourceComponent extends Component {
   render() {
-    return "<ProblemSource />";
+    return <p>{JSON.stringify(this.props.data)}</p>;
   }
 }
 

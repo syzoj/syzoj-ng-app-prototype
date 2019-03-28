@@ -37,7 +37,7 @@ class basePage extends Component {
   }
   refresh() {
     const path = this.props.location.pathname + this.props.location.search;
-    this.props.network.get(path);
+    this.props.network.get("/page" + path);
   }
   N_setBody(data) {
     this.setState({ data: data });
