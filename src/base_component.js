@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from "react";
+import React, { Component } from "react";
 
 const APIContext = React.createContext();
 
@@ -17,6 +17,7 @@ export class APIBase extends Component {
   get(path) {
     fetch(this.props.api + path, {
       method: "GET",
+      credentials: "include",
       headers: {
         Accept: "application/json"
       }
@@ -37,10 +38,10 @@ export class APIBase extends Component {
       });
   }
   doAction(url, action, data) {
-    const u =
-      this.props.api + this.props.location.pathname + url + "/" + action;
+    const u = this.props.api + url + "/" + action;
     fetch(u, {
       method: "POST",
+      credentials: "include",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
@@ -60,7 +61,15 @@ export function withNetwork(WrappedComponent) {
       if (ref == null) {
         delete this.context.components[this.props.url];
       } else {
+        if (this.context.components[this.props.url])
+          throw "Duplicate component url: " + this.props.url;
         this.context.components[this.props.url] = ref;
+      }
+    }
+    componentDidUpdate(prevProps) {
+      if (prevProps.url != this.props.url) {
+        console.log(prevProps, this.props);
+        throw "Component's url changed";
       }
     }
     doAction(action, data) {

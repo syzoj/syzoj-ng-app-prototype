@@ -16,7 +16,7 @@ function App() {
 
 function Base(props) {
   return (
-    <APIBase api="http://127.0.0.1:5900/api" {...props}>
+    <APIBase api="http://127.0.0.1:5900/api">
       <BasePage url="" {...props} />
     </APIBase>
   );
@@ -51,7 +51,11 @@ class basePage extends Component {
   }
   render() {
     return this.state.data ? (
-      <Any key="/page" url={this.props.url + "/page"} data={this.state.data} />
+      <Any
+        key={this.props.location.pathname}
+        url={this.props.url + "/page" + this.props.location.pathname}
+        data={this.state.data}
+      />
     ) : (
       "Loading"
     );

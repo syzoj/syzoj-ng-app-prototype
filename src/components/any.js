@@ -3,11 +3,15 @@ import React, { Component } from "react";
 import LoginPage from "./login_page";
 import RegisterPage from "./register_page";
 import NotFoundPage from "./not_found_page";
+import ProblemCreatePage from "./problem_create_page";
+import ProblemViewPage from "./problem_view_page";
 
 const components = {
   "syzoj.api.LoginPage": LoginPage,
   "syzoj.api.RegisterPage": RegisterPage,
-  "syzoj.api.NotFoundPage": NotFoundPage
+  "syzoj.api.NotFoundPage": NotFoundPage,
+  "syzoj.api.ProblemCreatePage": ProblemCreatePage,
+  "syzoj.api.ProblemViewPage": ProblemViewPage
 };
 
 export default function Any(props) {
