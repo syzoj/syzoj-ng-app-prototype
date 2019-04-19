@@ -1,8 +1,23 @@
-import React, { Component } from "react";
-import { withNetwork } from "../base_component";
+// 该文件用来创建一道题目。
+// TODO: 美化。
 
-// Cooresponding message: syzoj.api.ProblemCreatePage
-class ProblemCreatePage extends Component {
+import React, { Component } from "react";
+import {
+  withNetwork,
+  INetworkedComponentProps,
+  INetworkProp
+} from "../network";
+import * as api from "../interfaces/syzoj.api";
+
+interface ProblemCreatePageProps extends INetworkedComponentProps {
+  data: api.ProblemCreatePage;
+}
+
+class ProblemCreatePage extends Component<
+  ProblemCreatePageProps & INetworkProp,
+  any
+> {
+  refTitle: HTMLInputElement;
   render() {
     return (
       <div>
@@ -15,7 +30,7 @@ class ProblemCreatePage extends Component {
       </div>
     );
   }
-  onSubmit(e) {
+  onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // syzoj.api.ProblemCreateRequest
     this.props.network.doAction("create", {

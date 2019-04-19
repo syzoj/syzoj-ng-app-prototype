@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { APIBase, withNetwork } from "./base_component";
+import { APIBase, withNetwork } from "./network";
 
 import "./styles.css";
 import Any from "./components/any";
@@ -31,7 +31,7 @@ class basePage extends Component {
     this.refresh();
   }
   componentDidUpdate(prevProps) {
-    if (prevProps.location != this.props.location) {
+    if (prevProps.location !== this.props.location) {
       this.refresh();
     }
   }

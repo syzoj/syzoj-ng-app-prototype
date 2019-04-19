@@ -2,6 +2,10 @@
 
 syzoj-ng 的前端组件。
 
+## 开发
+
+开发前端时应该在后端开启调试选项，将 config.json 中的 server.api.debug 设置为 true，开启无限制跨域。还需要将 index.js 中的 APIBase 的 api 参数改为后端的地址。
+
 ## 约定
 
 每个组件应该接受两个参数，为 data 和 url。

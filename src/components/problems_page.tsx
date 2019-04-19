@@ -1,9 +1,19 @@
+// 题库。
+// TODO: 展示题库、搜索等功能。
+
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { withNetwork, INetworkedComponentProps, INetwork } from "../network";
+import * as api from "../interfaces/syzoj.api";
 
-import { withNetwork } from "../base_component";
+interface ProblemsPageEntryProps extends INetworkedComponentProps {
+  data: any;
+}
 
-class problemsPageEntry extends Component {
+class problemsPageEntry extends Component<
+  ProblemsPageEntryProps & { network: INetwork },
+  any
+> {
   render() {
     return (
       <tr>
@@ -18,11 +28,33 @@ class problemsPageEntry extends Component {
 }
 const ProblemsPageEntry = withNetwork(problemsPageEntry);
 
+interface ProblemsPageProps extends INetworkedComponentProps {
+  data: api.ProblemsPage;
+}
 // Corresponding message: syzoj.api.ProblemsPage
-class ProblemsPage extends Component {
+class ProblemsPage extends Component<
+  ProblemsPageProps & { network: INetwork },
+  any
+> {
+  refInput: HTMLInputElement;
+  onAddProblem() {
+    this.props.network.doAction("add-problem", {
+      problem_id: this.refInput.value
+    });
+  }
   render() {
     return (
       <div>
+        <Link to="/problem/create">创建题目</Link>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            this.onAddProblem();
+          }}
+        >
+          <input ref={ref => (this.refInput = ref)} />
+          <input type="submit" value="添加题目" />
+        </form>
         <table>
           <thead>
             <tr>
@@ -40,7 +72,7 @@ class ProblemsPage extends Component {
               ))
             ) : (
               <tr>
-                <td colspan="3">无结果</td>
+                <td colSpan={1}>无结果</td>
               </tr>
             )}
           </tbody>

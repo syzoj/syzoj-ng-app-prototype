@@ -1,8 +1,15 @@
-import React, { Component } from "react";
-import { withNetwork } from "../base_component";
+// 注册页面。
+// TODO: 美化。
 
+import React, { Component } from "react";
+import { withNetwork, INetworkComponentProps } from "../network";
+import * as api from "../interfaces/syzoj.api.d";
+
+interface RegisterPageProps extends INetworkComponentProps {
+  data: api.RegisterPage;
+}
 // Corresponding message: syzoj.api.RegisterPage
-class RegisterPage extends Component {
+class RegisterPage extends Component<RegisterPageProps, any> {
   render() {
     return (
       <div>

@@ -1,4 +1,7 @@
-import React, { Component } from "react";
+// 该文件用来将 Any 类型的页面交给对应的 Page 处理。
+// 该文件不需要改动。
+
+import React from "react";
 
 import IndexPage from "./index_page";
 import LoginPage from "./login_page";
