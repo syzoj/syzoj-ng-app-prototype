@@ -4,29 +4,12 @@ import "brace/theme/tomorrow";
 import "brace/mode/c_cpp";
 import "brace/mode/pascal";
 
-import * as model from "../interfaces/syzoj.model";
-
 // 该文件实现一个代码编辑器，包含语言选择以及编辑框。
 // TODO: 美化。
-interface ICodeEditorProps {
-  /** 接受一个参数，表示提交的代码。 */
-  onSubmit(code: model.TraditionalJudgeCode): void;
-}
-interface ICodeEditorState {
-  language: string;
-}
 
-export default class CodeEditor extends Component<
-  ICodeEditorProps,
-  ICodeEditorState
-> {
+export default class CodeEditor extends Component {
   static language_list = ["cpp", "c", "pas"];
-  static languages: {
-    [key: string]: {
-      name: string;
-      mode: string;
-    };
-  } = {
+  static languages = {
     cpp: {
       name: "C++",
       mode: "ace/mode/c_cpp"
@@ -40,15 +23,13 @@ export default class CodeEditor extends Component<
       mode: "ace/mode/pascal"
     }
   };
-  refEditor: HTMLDivElement;
-  editor: any;
 
-  constructor(props: Readonly<ICodeEditorProps>) {
+  constructor(props) {
     super(props);
     this.state = { language: CodeEditor.language_list[0] };
   }
   onSubmit() {
-    const code: model.TraditionalJudgeCode = {
+    const code = {
       code: this.editor.getValue(),
       language: this.state.language
     };

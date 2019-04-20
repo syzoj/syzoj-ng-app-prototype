@@ -2,14 +2,9 @@
 // TODO: 美化。
 
 import React, { Component } from "react";
-import { withNetwork, INetworkComponentProps } from "../network";
-import * as api from "../interfaces/syzoj.api.d";
+import { withNetwork } from "../network";
 
-interface RegisterPageProps extends INetworkComponentProps {
-  data: api.RegisterPage;
-}
-// Corresponding message: syzoj.api.RegisterPage
-class RegisterPage extends Component<RegisterPageProps, any> {
+class RegisterPage extends Component {
   render() {
     return (
       <div>

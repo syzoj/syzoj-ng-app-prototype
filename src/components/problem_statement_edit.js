@@ -3,17 +3,7 @@
 
 import React, { Component } from "react";
 
-import * as model from "../interfaces/syzoj.model";
-
-interface ProblemStatementEditProps {
-  // 用户点击“提交”按钮。参数为文本框的内容。
-  onSubmit(statement: model.ProblemStatement): void;
-}
-
-export default class ProblemStatementEdit extends Component<
-  ProblemStatementEditProps
-> {
-  refText: HTMLTextAreaElement;
+export default class ProblemStatementEdit extends Component {
   onSubmit(e) {
     e.preventDefault();
     this.props.onSubmit({ markdown: { text: this.refText.value } });

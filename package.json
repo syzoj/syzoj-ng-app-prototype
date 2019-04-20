@@ -6,11 +6,13 @@
   "main": "src/index.js",
   "dependencies": {
     "brace": "latest",
-    "react": "16.8.3",
+    "react": "16.8.6",
     "react-dom": "16.8.3",
+    "react-redux": "latest",
     "react-router": "5.0.0",
     "react-router-dom": "5.0.0",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "redux": "latest"
   },
   "devDependencies": {
     "typescript": "3.3.3"

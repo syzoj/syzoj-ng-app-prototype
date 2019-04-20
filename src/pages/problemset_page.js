@@ -3,17 +3,9 @@
 
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { withNetwork, INetworkedComponentProps, INetwork } from "../network";
-import * as api from "../interfaces/syzoj.api";
+import { withNetwork } from "../network";
 
-interface ProblemsPageEntryProps extends INetworkedComponentProps {
-  data: any;
-}
-
-class problemsPageEntry extends Component<
-  ProblemsPageEntryProps & { network: INetwork },
-  any
-> {
+class problemsetPageEntry extends Component {
   render() {
     return (
       <tr>
@@ -26,20 +18,12 @@ class problemsPageEntry extends Component<
     );
   }
 }
-const ProblemsPageEntry = withNetwork(problemsPageEntry);
+const ProblemsetPageEntry = withNetwork(problemsetPageEntry);
 
-interface ProblemsPageProps extends INetworkedComponentProps {
-  data: api.ProblemsPage;
-}
-// Corresponding message: syzoj.api.ProblemsPage
-class ProblemsPage extends Component<
-  ProblemsPageProps & { network: INetwork },
-  any
-> {
-  refInput: HTMLInputElement;
+class ProblemsetPage extends Component {
   onAddProblem() {
-    this.props.network.doAction("add-problem", {
-      problem_id: this.refInput.value
+    this.props.network.doAction("create-problem", {
+      problem_title: this.refTitle.value
     });
   }
   render() {
@@ -52,7 +36,8 @@ class ProblemsPage extends Component<
             this.onAddProblem();
           }}
         >
-          <input ref={ref => (this.refInput = ref)} />
+          <p>标题：</p>
+          <input ref={ref => (this.refTitle = ref)} />
           <input type="submit" value="添加题目" />
         </form>
         <table>
@@ -64,7 +49,7 @@ class ProblemsPage extends Component<
           <tbody>
             {this.props.data.problem_entry ? (
               this.props.data.problem_entry.map(entry => (
-                <ProblemsPageEntry
+                <ProblemsetPageEntry
                   key={entry.id}
                   url={this.props.url + "/" + entry.id}
                   data={entry}
@@ -82,4 +67,4 @@ class ProblemsPage extends Component<
   }
 }
 
-export default withNetwork(ProblemsPage);
+export default withNetwork(ProblemsetPage);
